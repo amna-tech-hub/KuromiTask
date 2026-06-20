@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>localStorage Listener Demo</title>
+</head>
+<body>
+    <h1>localStorage Listener Demo</h1>
+    
+    <div style="display: flex; gap: 20px;">
+        <!-- Tab 1: Registration -->
+        <div style="border: 1px solid black; padding: 20px;">
+            <h2>Registration Form (Tab 1)</h2>
+            <input type="text" id="userId" placeholder="Enter User ID">
+            <button onclick="registerUser()">Register User</button>
+            <p id="status1"></p>
+        </div>
+        
+        <!-- Tab 2: Add Todo Component -->
+        <div style="border: 1px solid black; padding: 20px;">
+            <h2>Add Todo Component (Tab 1)</h2>
+            <p>Current User ID: <span id="currentUserId">Not logged in</span></p>
+            <button onclick="addTodo()">Add Todo</button>
+            <p id="status2"></p>
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px; border: 1px solid red; padding: 20px;">
+        <h3>Instructions:</h3>
+        <p>1. Try registering a user - see that the Add Todo component DOESN'T update (same tab issue)</p>
+        <p>2. Open this same page in ANOTHER browser tab</p>
+        <p>3. Register in Tab 2 - watch Tab 1 automatically update! (cross-tab works)</p>
+    </div>
+
+    <script>
+        // THIS IS THE LISTENER THAT WATCHES FOR CHANGES
+        console.log('Setting up storage listener...');
+        
+        // AddTodo Component's listener (runs automatically when localStorage changes)
+        window.addEventListener('storage', function(event) {
+            console.log('🔔 STORAGE EVENT DETECTED!');
+            console.log('   Changed key:', event.key);
+            console.log('   Old value:', event.oldValue);
+            console.log('   New value:', event.newValue);
+            
+            if (event.key === 'userId') {
+                // Update the display in AddTodo component
+                updateUserDisplay(event.newValue);
+                document.getElementById('status2').innerHTML = 
+                    `✅ Storage event triggered! User ID updated to: ${event.newValue}`;
+            }
+        });
+        
+        // CUSTOM EVENT for same-tab updates
+        window.addEventListener('userRegistered', function(event) {
+            console.log('🔔 CUSTOM EVENT DETECTED in same tab!');
+            const userId = localStorage.getItem('userId');
+            updateUserDisplay(userId);
+            document.getElementById('status2').innerHTML = 
+                `✅ Custom event triggered! User ID updated to: ${userId}`;
+        });
+        
+        function updateUserDisplay(userId) {
+            if (userId) {
+                document.getElementById('currentUserId').textContent = userId;
+            } else {
+                document.getElementById('currentUserId').textContent = 'Not logged in';
+            }
+        }
+        
+        function registerUser() {
+            const userIdInput = document.getElementById('userId');
+            const userId = userIdInput.value;
+            
+            if (!userId) {
+                alert('Please enter a User ID');
+                return;
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('userId', userId);
+            
+            // MANUALLY DISPATCH CUSTOM EVENT for same-tab updates
+            // This is the KEY part you were missing!
+            window.dispatchEvent(new CustomEvent('userRegistered', { 
+                detail: { userId: userId } 
+            }));
+            
+            document.getElementById('status1').innerHTML = 
+                `✅ Registered user: ${userId} (Custom event dispatched)`;
+            
+            // Also update display immediately
+            updateUserDisplay(userId);
+        }
+        
+        function addTodo() {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                alert('Please register first!');
+                return;
+            }
+            alert(`Adding todo for user: ${userId}`);
+        }
+        
+        // Initial display
+        const currentUserId = localStorage.getItem('userId');
+        if (currentUserId) {
+            updateUserDisplay(currentUserId);
+        }
+    </script>
+</body>
+</html>
