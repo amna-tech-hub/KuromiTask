@@ -1,5 +1,5 @@
 const BASE_URL = import.meta.env.VITE_API_URL || "https://kuromi-backend.vercel.app";
-
+console.log("🔗 API URL:", BASE_URL);
 // Helper function for consistent error handling
 const handleResponse = async (response) => {
   if (!response.ok) {

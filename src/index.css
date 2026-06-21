@@ -1,6 +1,7 @@
 
-
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* Your existing index.css content */
 /* Your existing index.css content */
 /* Kuromi Cursors - 3 Simple Cursors */
