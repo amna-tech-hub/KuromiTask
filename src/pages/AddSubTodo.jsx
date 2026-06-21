@@ -12,7 +12,6 @@ function AddSubTodo() {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   
-  console.log(param, "your parameters");
 
   useEffect(() => {
     function handleUserId(event) {

@@ -1,12 +1,11 @@
-const BASE_URL = "https://kuromi-backend-qk4zrh5m3-amna-abbas-projects.vercel.app";
+const BASE_URL = "https://kuromi-backend.vercel.app"
 
 export async function getTodos(userid){
   const res = await fetch(`${BASE_URL}/todo/gettodo/${userid}`);
   if(!res.ok){
       throw new Error("server error can't fetch todo ")
   }
-  return res.json({message:`${res} your reponse`})
-}
+return res.json(); }
 
 export const addUser=async(data)=>{
     try {
