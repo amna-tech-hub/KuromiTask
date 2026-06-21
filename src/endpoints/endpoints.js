@@ -5,7 +5,8 @@ export async function getTodos(userid){
   if(!res.ok){
       throw new Error("server error can't fetch todo ")
   }
-return res.json(); }
+return res.json(); 
+}
 
 export const addUser=async(data)=>{
     try {
