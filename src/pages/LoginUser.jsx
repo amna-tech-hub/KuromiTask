@@ -154,7 +154,7 @@ function LoginUser() {
                 </span>
               ) : (
                 <span className="flex items-center justify-center gap-2">
-                  🎀 Login 🐰
+                  🎀 Login  🎀 
                 </span>
               )}
             </button>
