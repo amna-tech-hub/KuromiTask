@@ -1,4 +1,4 @@
-{
+const del={
   "version": 2,
   "builds": [
     {
