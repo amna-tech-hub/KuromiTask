@@ -52,7 +52,7 @@ function Navbar() {
               <img 
                 src={'https://i.pinimg.com/736x/85/9f/78/859f7888cb715a097e337935ea8348bf.jpg'} 
                 alt="Kuromi Logo" 
-                className="h-15 w-17 object-contain rounded-full"
+                className="h-16 w-16 object-contain rounded-full"
               />
             </Link>
 
@@ -63,15 +63,14 @@ function Navbar() {
                   key={key}
                   to={value.path}
                   className={`
-                    flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-colors
-                    ${isActive(value.path) 
-                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' 
-                      : 'text-purple-200 hover:bg-purple-500/30 hover:text-white'
-                    }
+                    relative px-4 py-2 font-semibold text-purple-200
+                    ${isActive(value.path) ? 'text-white' : 'hover:text-white'}
                   `}
                 >
-                  <span className="text-lg">{value.icon}</span>
                   <span>{value.title}</span>
+                  {isActive(value.path) && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-400 to-pink-400"></span>
+                  )}
                 </Link>
               ))}
             </div>
@@ -81,29 +80,30 @@ function Navbar() {
               {isLoggedIn ? (
                 <button 
                   onClick={handlelogout}
-                  className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-5 py-2 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all"
+                  className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-5 py-2 rounded-xl shadow-md"
                 >
                   Logout
                 </button>
-              ) : (<>
-                <Link 
-                  to="/auth/login"
-                  className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-5 py-2 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all"
-                >
-                  Login
-                </Link>
-                 <Link 
-                  to="/auth/register-user"
-                  className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-5 py-2 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all"
-                >
-                  Sign-up
-                </Link></>
-                
+              ) : (
+                <>
+                  <Link 
+                    to="/auth/login"
+                    className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-5 py-2 rounded-xl shadow-md"
+                  >
+                    Login
+                  </Link>
+                  <Link 
+                    to="/auth/register-user"
+                    className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-5 py-2 rounded-xl shadow-md"
+                  >
+                    Sign-up
+                  </Link>
+                </>
               )}
 
               {/* Mobile Menu Button */}
               <button 
-                className="md:hidden w-10 h-10 rounded-lg flex items-center justify-center text-2xl text-purple-200 hover:bg-purple-500/30"
+                className="md:hidden w-10 h-10 rounded-lg flex items-center justify-center text-2xl text-purple-200"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 <span>{isMobileMenuOpen ? '✕' : '☰'}</span>
@@ -119,7 +119,6 @@ function Navbar() {
         fixed top-16 left-0 w-4/5 h-[calc(100vh-4rem)] 
         bg-purple-950/95 backdrop-blur-md
         shadow-2xl border-r border-purple-300 z-40
-        transition-transform duration-200
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="flex flex-col p-4 gap-2 h-full justify-between">
@@ -131,27 +130,25 @@ function Navbar() {
                   key={key}
                   to={value.path}
                   className={`
-                    flex items-center gap-3 px-4 py-3 rounded-xl font-semibold
-                    ${isActive(value.path) 
-                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' 
-                      : 'text-purple-200 hover:bg-purple-500/30 hover:text-white'
-                    }
+                    relative px-4 py-3 font-semibold text-purple-200
+                    ${isActive(value.path) ? 'text-white' : 'hover:text-white'}
                   `}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <span className="text-xl">{value.icon}</span>
-                  <span className="text-lg">{value.title}</span>
+                  <span>{value.title}</span>
+                  {isActive(value.path) && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-400 to-pink-400"></span>
+                  )}
                 </Link>
               ))
             ) : (
               // Show only Login when not logged in
               <Link
                 to="/auth/login"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-purple-200 hover:bg-purple-500/30 hover:text-white"
+                className="px-4 py-3 font-semibold text-purple-200 hover:text-white"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                <span className="text-xl">🔑</span>
-                <span className="text-lg">Login</span>
+                Login
               </Link>
             )}
           </div>

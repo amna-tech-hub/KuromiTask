@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import React, { useRef } from "react";
-import { otpDataSubmition } from "../../endpoints/endpoints";
+import { otpDataSubmition } from "../endpoints/endpoints";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";

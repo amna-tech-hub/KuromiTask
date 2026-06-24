@@ -11,7 +11,7 @@ import GetAllSubtodo from "./pages/GetAllSubtodo";
 import LoginUser from "./pages/LoginUser";
 import User from "./pages/User";
 import AddTodo from "./pages/AddTodo";
-import OtpVerification from "./pages/layout/OtpVerification";
+import OtpVerification from "./pages/OtpVerification";
 
 const queryClient = new QueryClient();
 
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth/verify-otp",
-        element: <OtpVerification />,
+        element: <OtpVerification/>,
       },
     ],
   },
@@ -55,6 +55,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} /> {/* ✅ Fixed - no <App> here */}
+    <RouterProvider router={router} /> 
   </QueryClientProvider>,
 );
