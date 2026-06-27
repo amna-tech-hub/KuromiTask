@@ -4,48 +4,40 @@ import { otpDataSubmition } from "../endpoints/endpoints";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 export default function OtpVerification() {
   const [userotp, setotp] = useState(["", "", "", "", "", ""]);
   const location = useLocation();
   const navigate = useNavigate();
   const email = location?.state?.email;
-  
+
   const Ref = useRef([]);
   useEffect(() => {
     if (!email) {
+      
       navigate("/auth/register-user");
     }
-  }, [email, navigate]); // Runs when email changes
-  const { mutate,isError } = useMutation({
+  }, [email, navigate]); 
+  const { mutate, isError } = useMutation({
     mutationFn: otpDataSubmition,
     onSuccess(data) {
-      if(data.sucess){
-      navigate("/todo/addtodo");
-
-      }
-      else{
-      navigate("/auth/register-user");
-
-      }
- 
-    
+      if (data.success) {
+        navigate("/todo/addtodo");
+      } 
     },
   });
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    console.log(userotp.join(""));
 
     mutate({
       email: email,
       otp: userotp.join(""),
     });
   }
-useEffect(()=>{
-  
-Ref.current[0].focus()
-},[])
+  useEffect(() => {
+    Ref.current[0].focus();
+  }, []);
   return (
     <div className="min-h-screen bg-[#120f1a] flex flex-col justify-center items-center p-4">
       {/* Main Card Container */}
@@ -77,20 +69,17 @@ Ref.current[0].focus()
               <input
                 key={index}
                 name={index}
-                onKeyDown={(e)=>{
-                  console.log(e.key," kry");
-                  
-                        if (e.key=='Backspace' && index > 0) {
-                                        Ref.current[index - 1].focus();
+                onKeyDown={(e) => {
 
+                  if (e.key == "Backspace" && index > 0) {
+                    Ref.current[index - 1].focus();
                   }
-                  if(e.key=='ArrowLeft'  && index>0){
-                    Ref.current[index-1].focus()
+                  if (e.key == "ArrowLeft" && index > 0) {
+                    Ref.current[index - 1].focus();
                   }
-                   if(e.key=='ArrowRight'  && index<5){
-                    Ref.current[index+1].focus()
+                  if (e.key == "ArrowRight" && index < 5) {
+                    Ref.current[index + 1].focus();
                   }
-
                 }}
                 onInput={(e) => {
                   const newOtp = [...userotp];
@@ -99,14 +88,9 @@ Ref.current[0].focus()
 
                   if (e.target.value && index < 5) {
                     Ref.current[index + 1].focus();
-                    console.log(e.key," key");
-                    
                   }
-                 
-                  
                 }}
                 ref={(e) => (Ref.current[index] = e)}
-                
                 type="text"
                 maxLength="1"
                 className="w-12 h-14 text-center text-xl font-bold rounded-xl border-2 bg-[#252036] text-pink-400 border-purple-900/60 transition-all duration-200 outline-none focus:border-pink-500 focus:text-pink-300 focus:shadow-[0_0_12px_rgba(236,72,153,0.5)]
@@ -127,12 +111,14 @@ Ref.current[0].focus()
         {/* Footer Actions */}
         <div className="mt-8 text-xs text-purple-400/50">
           Didn't receive the code?
-          <button
-            type="button"
+          <Link
+            to="/auth/resend-otp"
+           state={email}
+
             className="text-pink-400 hover:text-pink-300 hover:underline font-semibold bg-transparent border-none cursor-pointer"
           >
             Resend Code
-          </button>
+          </Link>
         </div>
       </div>
     </div>

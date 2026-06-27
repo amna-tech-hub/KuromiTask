@@ -10,7 +10,6 @@ function User() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    console.log(data, "your inputs");
     setEmail(data.email)
     mutate(data);
   }
@@ -36,17 +35,15 @@ function User() {
       }
     },
     onError: (error) => {
-      console.log(error);
-      alert("😭 Kuromi says: Registration failed! Please try again! 💀");
+      alert("Kuromi says: Registration failed! Please try again!");
     }
   });
 
-  console.log(isPending, " is loading");
 
   return (
     <>
       <div 
-        className="min-h-screen flex items-center justify-center p-4 relative  bg-contain bg-no-repeat"
+        className="min-h-screen flex items-center justify-center p-4 relative bg-contain bg-no-repeat"
         style={{ backgroundImage: `url('https://www.pinterest.com/pin/1078964023340375367/') ` }}
       >
         
@@ -73,10 +70,8 @@ function User() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name Input */}
             <div className="relative group">
-              <label className="block text-purple-700 font-semibold mb-2 flex items-center gap-2">
-                <span>🐰</span>
+              <label className="block text-purple-700 font-semibold mb-2">
                 Your Name
-                <span>💜</span>
               </label>
               <div className="relative">
                 <input
@@ -86,18 +81,13 @@ function User() {
                   className="w-full px-5 py-3 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent bg-purple-50/30 text-gray-700 placeholder-purple-300"
                   required
                 />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-2xl opacity-0 group-hover:opacity-100">
-                  ✨
-                </div>
               </div>
             </div>
             
             {/* Email Input */}
             <div className="relative group">
-              <label className="block text-purple-700 font-semibold mb-2 flex items-center gap-2">
-                <span>📧</span>
+              <label className="block text-purple-700 font-semibold mb-2">
                 Email Address
-                <span>🎀</span>
               </label>
               <div className="relative">
                 <input
@@ -107,18 +97,13 @@ function User() {
                   className="w-full px-5 py-3 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent bg-purple-50/30 text-gray-700 placeholder-purple-300"
                   required
                 />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-2xl opacity-0 group-hover:opacity-100">
-                  💌
-                </div>
               </div>
             </div>
             
             {/* Password Input */}
             <div className="relative group">
-              <label className="block text-purple-700 font-semibold mb-2 flex items-center gap-2">
-                <span>🔮</span>
+              <label className="block text-purple-700 font-semibold mb-2">
                 Secret Password
-                <span>💀</span>
               </label>
               <div className="relative">
                 <input
@@ -128,9 +113,6 @@ function User() {
                   className="w-full px-5 py-3 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent bg-purple-50/30 text-gray-700 placeholder-purple-300"
                   required
                 />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-2xl opacity-0 group-hover:opacity-100">
-                  👁️
-                </div>
               </div>
             </div>
             
@@ -149,8 +131,8 @@ function User() {
                   Joining Kuromi's Club...
                 </span>
               ) : (
-                <span className="flex items-center justify-center gap-2">
-                  🎀 Join Kuromi's Club 🐰
+                <span>
+                  Join Kuromi's Club
                 </span>
               )}
             </button>

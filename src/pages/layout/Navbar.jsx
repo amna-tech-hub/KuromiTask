@@ -7,7 +7,10 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const location = useLocation()
-  const isActive = (path) => location.pathname === path
+  const isActive = (path) => {
+    const isActive = location.pathname === path
+    return isActive
+  }
 
   // Check login status
   useEffect(() => {
@@ -41,6 +44,7 @@ function Navbar() {
     logoutUser()
   }
 
+ 
   return (
     <>
       <nav className="bg-black/40 backdrop-blur-md border-b-4 border-purple-300 shadow-xl sticky top-0 z-50">
@@ -58,21 +62,27 @@ function Navbar() {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-1">
-              {isLoggedIn && Object.entries(navlink).map(([key, value]) => (
-                <Link
-                  key={key}
-                  to={value.path}
-                  className={`
-                    relative px-4 py-2 font-semibold text-purple-200
-                    ${isActive(value.path) ? 'text-white' : 'hover:text-white'}
-                  `}
-                >
-                  <span>{value.title}</span>
-                  {isActive(value.path) && (
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-400 to-pink-400"></span>
-                  )}
-                </Link>
-              ))}
+              {isLoggedIn && Object.entries(navlink).map(([key, value]) => {
+                const active = isActive(value.path)
+                return (
+                  <Link
+                    key={key}
+                    to={value.path}
+                    className={`
+                      relative px-4 py-2 font-semibold rounded-lg transition-all duration-200
+                      ${active 
+                        ? 'bg-purple-800/60 text-pink-300 border-2 border-pink-400 shadow-lg shadow-pink-500/20' 
+                        : 'text-purple-200 hover:text-white hover:bg-purple-900/30'
+                      }
+                    `}
+                  >
+                    <span>{value.title}</span>
+                    {active && (
+                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-pink-400 to-purple-400"></span>
+                    )}
+                  </Link>
+                )
+              })}
             </div>
 
             {/* Right Section */}
@@ -80,7 +90,7 @@ function Navbar() {
               {isLoggedIn ? (
                 <button 
                   onClick={handlelogout}
-                  className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-5 py-2 rounded-xl shadow-md"
+                  className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-5 py-2 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
                 >
                   Logout
                 </button>
@@ -88,13 +98,13 @@ function Navbar() {
                 <>
                   <Link 
                     to="/auth/login"
-                    className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-5 py-2 rounded-xl shadow-md"
+                    className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-5 py-2 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
                   >
                     Login
                   </Link>
                   <Link 
                     to="/auth/register-user"
-                    className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-5 py-2 rounded-xl shadow-md"
+                    className="hidden md:block bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-5 py-2 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
                   >
                     Sign-up
                   </Link>
@@ -103,7 +113,7 @@ function Navbar() {
 
               {/* Mobile Menu Button */}
               <button 
-                className="md:hidden w-10 h-10 rounded-lg flex items-center justify-center text-2xl text-purple-200"
+                className="md:hidden w-10 h-10 rounded-lg flex items-center justify-center text-2xl text-purple-200 hover:bg-purple-900/30 transition-colors"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 <span>{isMobileMenuOpen ? '✕' : '☰'}</span>
@@ -119,33 +129,40 @@ function Navbar() {
         fixed top-16 left-0 w-4/5 h-[calc(100vh-4rem)] 
         bg-purple-950/95 backdrop-blur-md
         shadow-2xl border-r border-purple-300 z-40
+        transition-transform duration-300 ease-in-out
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="flex flex-col p-4 gap-2 h-full justify-between">
           <div className="flex flex-col gap-2">
             {isLoggedIn ? (
               // Show nav links when logged in
-              Object.entries(navlink).map(([key, value]) => (
-                <Link
-                  key={key}
-                  to={value.path}
-                  className={`
-                    relative px-4 py-3 font-semibold text-purple-200
-                    ${isActive(value.path) ? 'text-white' : 'hover:text-white'}
-                  `}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <span>{value.title}</span>
-                  {isActive(value.path) && (
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-400 to-pink-400"></span>
-                  )}
-                </Link>
-              ))
+              Object.entries(navlink).map(([key, value]) => {
+                const active = isActive(value.path)
+                return (
+                  <Link
+                    key={key}
+                    to={value.path}
+                    className={`
+                      relative px-4 py-3 font-semibold rounded-lg transition-all duration-200
+                      ${active 
+                        ? 'bg-purple-800/60 text-pink-300 border-2 border-pink-400 shadow-lg shadow-pink-500/20' 
+                        : 'text-purple-200 hover:text-white hover:bg-purple-900/30'
+                      }
+                    `}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span>{value.title}</span>
+                    {active && (
+                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-pink-400 to-purple-400"></span>
+                    )}
+                  </Link>
+                )
+              })
             ) : (
               // Show only Login when not logged in
               <Link
                 to="/auth/login"
-                className="px-4 py-3 font-semibold text-purple-200 hover:text-white"
+                className="px-4 py-3 font-semibold text-purple-200 hover:text-white hover:bg-purple-900/30 rounded-lg transition-all duration-200"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Login
@@ -161,14 +178,14 @@ function Navbar() {
                   setIsMobileMenuOpen(false);
                   handlelogout();
                 }}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-3 px-4 rounded-xl shadow-md"
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
               >
                 Logout
               </button>
             ) : (
               <Link
                 to="/auth/login"
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-3 px-4 rounded-xl shadow-md flex items-center justify-center"
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Login

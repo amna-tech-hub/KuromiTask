@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginUser } from '../endpoints/endpoints'
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 function LoginUser() {
   const queryClient = useQueryClient();
   const [errorMessage, setErrorMessage] = useState('');
@@ -11,12 +11,9 @@ function LoginUser() {
   const { mutate, isLoading, data } = useMutation({
     mutationFn: (data) => loginUser(data),
     onSuccess: (data) => {
-      console.log(data, "success data");
       
       if (data.success && data.user?._id) {
-        console.log(data.success, "login success data");
-        console.log(data.user._id, "your userId");
-        
+    
         localStorage.setItem('userId', data.user._id);
         
         window.dispatchEvent(new CustomEvent('registeredUser', {
@@ -31,7 +28,6 @@ function LoginUser() {
       }
     },
     onError: (error) => {
-      console.log(error);
       setErrorMessage(" Kuromi says: Login failed! Please try again! 💀");
     }
   });
@@ -41,7 +37,6 @@ function LoginUser() {
     setErrorMessage('');
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    console.log(data, "your login inputs");
     mutate(data);
   }
 
@@ -170,7 +165,7 @@ function LoginUser() {
               <span>🎀</span>
             </div>
             <p className="text-purple-400 text-xs italic">
-              "Don't forget your password... or Kuromi will be sad!" 💜
+              <Link to='/auth/resetpassword'>Forget password?click here</Link>   
             </p>
             <div className="mt-2 text-purple-300 text-xs">
               ✨ New here? <span className="text-purple-500 font-semibold">Join Kuromi's Club</span> to start your magical journey! ✨

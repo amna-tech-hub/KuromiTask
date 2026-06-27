@@ -1,5 +1,5 @@
-const BASE_URL = import.meta.env.VITE_API_URL || "https://kuromi-backend.vercel.app";
-console.log(" API URL:", BASE_URL);
+  const BASE_URL = import.meta.env.VITE_API_URL || "https://kuromi-backend.vercel.app";
+//  const BASE_URL = 'http://localhost:3000'
 // Helper function for consistent error handling
 const handleResponse = async (response) => {
   if (!response.ok) {
@@ -13,14 +13,13 @@ const handleResponse = async (response) => {
 export async function getTodos(userid) {
   try {
     const res = await fetch(`${BASE_URL}/todo/gettodo/${userid}`, {
-      credentials: 'include' // ✅ ADD THIS
+      credentials: 'include' 
     });
     if (!res.ok) {
       throw new Error("Server error can't fetch todo");
     }
     return res.json();
   } catch (error) {
-    console.error("Error fetching todos:", error);
     throw error;
   }
 }
@@ -38,7 +37,6 @@ export const addUser = async (data) => {
     });
     return await handleResponse(serverResponse);
   } catch (error) {
-    console.error("API Call failed:", error);
     throw error;
   }
 }
@@ -51,12 +49,11 @@ export const addCategory = async (data) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'include', // ✅ ADD THIS
+      credentials: 'include', 
       body: JSON.stringify(data)
     });
     return await handleResponse(serverResponse);
   } catch (error) {
-    console.error("API Call failed:", error);
     throw error;
   }
 }
@@ -74,7 +71,6 @@ export const addsubtodo = async (data) => {
     });
     return await handleResponse(serverResponse);
   } catch (error) {
-    console.error("API Call failed:", error);
     throw error;
   }
 }
@@ -87,7 +83,7 @@ export const getallsubtodo = async (data) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'include', // ✅ ADD THIS
+      credentials: 'include', 
       body: JSON.stringify({ 
         userId: data.userId, 
         categoryName: data.categoryName 
@@ -95,7 +91,6 @@ export const getallsubtodo = async (data) => {
     });
     return await handleResponse(serverResponse);
   } catch (error) {
-    console.error("API Call failed:", error);
     throw error;
   }
 }
@@ -108,12 +103,11 @@ export const loginUser = async (data) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'include', // ✅ ADD THIS
+      credentials: 'include', 
       body: JSON.stringify(data)
     });
     return await handleResponse(serverResponse);
   } catch (error) {
-    console.error("API Call failed:", error);
     throw error;
   }
 }
@@ -123,22 +117,19 @@ export const logoutUser = async () => {
   try {
     const response = await fetch(`${BASE_URL}/auth/logout`, {
       method: 'POST',
-      credentials: 'include' // ✅ Already has this
+      credentials: 'include'
     });
     if (response.ok) {
-      console.log('Logout successful');
       return await response.json();
     }
     throw new Error('Logout failed');
   } catch (error) {
-    console.error('Logout failed', error);
     throw error;
   }
 };
 
 // Delete Subtodo
 export const deletesubtodo = async (data) => {
-  console.log(data, " your data came to remove your subtodo");
   try {
     const serverResponse = await fetch(`${BASE_URL}/todo/deletesubtodo/${data.subtodocat}`, {
       method: 'POST',
@@ -153,7 +144,6 @@ export const deletesubtodo = async (data) => {
     });
     return await handleResponse(serverResponse);
   } catch (error) {
-    console.error("API Call failed:", error);
     throw error;
   }
 }
@@ -166,12 +156,48 @@ export const otpDataSubmition = async (data) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'include', // ✅ ADD THIS
+      credentials: 'include', 
       body: JSON.stringify(data)
     });
     return await handleResponse(res);
   } catch (err) {
-    console.log(err);
     throw err;
+  }
+}
+
+//resend OTP
+
+export const resendOtp = async (data) => {
+  try {
+    let res = await fetch(`${BASE_URL}/auth/resend-otp`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include', 
+      body: JSON.stringify(data)
+    });
+    return await handleResponse(res);
+  } catch (err) {
+    throw err;
+  }
+}
+
+export const deletetodo = async (data) => {
+  try {
+    const serverResponse = await fetch(`${BASE_URL}/todo/deletetodo`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include', 
+      body: JSON.stringify({ 
+        todoid: data._id, 
+       
+      })
+    });
+    return await handleResponse(serverResponse);
+  } catch (error) {
+    throw error;
   }
 }

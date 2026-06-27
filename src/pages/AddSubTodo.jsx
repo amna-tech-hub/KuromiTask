@@ -41,7 +41,6 @@ function AddSubTodo() {
       categoryname: param.categoryname
     }),
     onSuccess: () => {
-      console.log("data sent to the server");
       setIsSubmitting(false);
       setToastMessage('Task added successfully!');
       setShowToast(true);
@@ -91,26 +90,28 @@ function AddSubTodo() {
         
         <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
           {/* Add Subtodo Form Card */}
-          <div className="relative bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-6 sm:p-8 max-w-sm sm:max-w-md mx-auto border-4 border-purple-300">
+          <div className="relative bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 w-full max-w-md mx-auto border-4 border-purple-300">
             {/* Header Badge */}
-            <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full p-2 sm:p-3 shadow-lg">
-              <div className="text-3xl sm:text-4xl">+</div>
+            <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full p-3 shadow-lg">
+              <img src="https://i.pinimg.com/1200x/44/a9/d5/44a9d51897bcd35f71bbb02fa47dc99f.jpg" width={45} className='rounded-full' alt="" />
             </div>
             
             {/* Title Section */}
-            <div className="text-center mt-4 sm:mt-6 mb-6 sm:mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <div className="text-center mt-6 mb-8">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Add Subtodo
               </h2>
-              <p className="text-purple-400 text-xs sm:text-sm mt-1 sm:mt-2 flex items-center justify-center gap-2">
+              <p className="text-purple-400 text-sm mt-2 flex items-center justify-center gap-2">
+                <img src="https://i.pinimg.com/736x/0d/08/a6/0d08a6eb2657d833e26eca3e1ba61089.jpg" width={40} height={40} alt="" />
                 Create a spooky-cute subtodo!
+                <img src="https://i.pinimg.com/736x/0d/08/a6/0d08a6eb2657d833e26eca3e1ba61089.jpg" width={40} height={40} alt="" />
               </p>
             </div>
             
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {/* Todo Title Input */}
               <div className="relative group">
-                <label className="block text-purple-700 font-semibold mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base">
+                <label className="block text-purple-700 font-semibold mb-2">
                   Task Title
                 </label>
                 <div className="relative">
@@ -120,15 +121,14 @@ function AddSubTodo() {
                     placeholder="e.g., Draw spooky art, Bake cookies..."
                     required
                     disabled={isSubmitting}
-                    className="w-full px-4 sm:px-5 py-2 sm:py-3 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all bg-purple-50/30 text-gray-700 placeholder-purple-300 disabled:opacity-50 text-sm sm:text-base"
+                    className="w-full px-5 py-3 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent bg-purple-50/30 text-gray-700 placeholder-purple-300 disabled:opacity-50"
                   />
                 </div>
-                <p className="text-xs text-purple-400 mt-1 ml-2">Give your task a cute name!</p>
               </div>
               
               {/* Category Name Display */}
               <div className="relative">
-                <label className="block text-purple-700 font-semibold mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base">
+                <label className="block text-purple-700 font-semibold mb-2">
                   Category
                 </label>
                 <div className="relative">
@@ -137,7 +137,7 @@ function AddSubTodo() {
                     name="categoryname" 
                     value={param.categoryname || "Loading..."} 
                     readOnly
-                    className="w-full px-4 sm:px-5 py-2 sm:py-3 border-2 border-purple-200 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 text-purple-600 cursor-not-allowed font-semibold text-sm sm:text-base"
+                    className="w-full px-5 py-3 border-2 border-purple-200 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 text-purple-600 cursor-not-allowed font-semibold"
                   />
                 </div>
               </div>
@@ -146,19 +146,18 @@ function AddSubTodo() {
               <button
                 type="submit"
                 disabled={isSubmitting || !userid}
-                className="relative w-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 text-white py-2.5 sm:py-3 px-4 rounded-xl hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-base sm:text-lg overflow-hidden group mt-4 sm:mt-6"
+                className="relative w-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 text-white py-3 px-4 rounded-xl hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-lg overflow-hidden mt-6"
               >
-                <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></span>
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                     Adding Task...
                   </span>
                 ) : (
-                  <span className="flex items-center justify-center gap-2">
+                  <span>
                     Add Task
                   </span>
                 )}
@@ -167,7 +166,7 @@ function AddSubTodo() {
           </div>
           
           {/* Display All Subtodos */}
-          <div className="mt-6 sm:mt-8">
+          <div className="mt-8">
             <GetAllSubtodo categoryname={param.categoryname} />
           </div>
         </div>

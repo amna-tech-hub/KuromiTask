@@ -1,7 +1,7 @@
 export const navlink={
     Signup:{
         title:"Sign-up",
-        path:"auth/register-user",
+        path:"/auth/register-user",
         icon: '🏠'
     },
  
@@ -12,13 +12,13 @@ export const navlink={
 //     },
    AllTodos: {
     title:"All Todos",
-   path: "todo/getalltodo",
+   path: "/todo/getalltodo",
    icon: '🏠'
 
     },
      AddTodos: {
     title:"Add Todos",
-    path: "todo/addtodo",
+    path: "/todo/addtodo",
    icon: '🏠'
     },
       
