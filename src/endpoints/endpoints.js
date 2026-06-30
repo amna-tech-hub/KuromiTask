@@ -1,4 +1,4 @@
-  const BASE_URL = import.meta.env.VITE_API_URL || "https://kuromi-backend.vercel.app";
+   const BASE_URL = import.meta.env.VITE_API_URL || "https://kuromi-backend.vercel.app";
 //  const BASE_URL = 'http://localhost:3000'
 // Helper function for consistent error handling
 const handleResponse = async (response) => {
@@ -201,3 +201,71 @@ export const deletetodo = async (data) => {
     throw error;
   }
 }
+
+
+
+
+export const resetPassword = async (data) => {
+  try {
+    console.log(data," yopur data");
+    
+    const serverResponse = await fetch(`${BASE_URL}/auth/reset-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include', 
+      body: JSON.stringify({ 
+      
+       data
+      })
+    });
+    return await handleResponse(serverResponse);
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
+export const forgotPassword = async (data) => {
+  try {
+    console.log(data," yopur data");
+    
+    const serverResponse = await fetch(`${BASE_URL}/auth/forget-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include', 
+      body: JSON.stringify({ 
+      
+       data
+      })
+    });
+    return await handleResponse(serverResponse);
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
+export const verifyresettoken = async (token) => {
+  console.log(token," token");
+  
+  try {
+    const res = await fetch(`${BASE_URL}/auth/verify-reset-token/${token}`, {
+      credentials: 'include' 
+    });
+    if (!res.ok) {
+      throw new Error("Server error can't fetch todo");
+    }
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+

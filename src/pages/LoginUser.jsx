@@ -165,7 +165,7 @@ function LoginUser() {
               <span>🎀</span>
             </div>
             <p className="text-purple-400 text-xs italic">
-              <Link to='/auth/resetpassword'>Forget password?click here</Link>   
+              <Link to='/auth/forgetpassword'>Forget password?click here</Link>   
             </p>
             <div className="mt-2 text-purple-300 text-xs">
               ✨ New here? <span className="text-purple-500 font-semibold">Join Kuromi's Club</span> to start your magical journey! ✨

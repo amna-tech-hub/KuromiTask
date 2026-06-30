@@ -14,6 +14,7 @@ import AddTodo from "./pages/AddTodo";
 import OtpVerification from "./pages/OtpVerification";
 import ResendOtp from "./pages/ResendOtp";
 import ResetPassword from "./pages/ResetPassword";
+import ForgetPassword from "./pages/ForgetPassword";
 
 const queryClient = new QueryClient();
 
@@ -56,8 +57,12 @@ const router = createBrowserRouter([
         element: <ResendOtp/>,
       },
       {
-        path:'/auth/resetpassword',
+        path:'/auth/resetpassword/:token',
         element:<ResetPassword/>
+      },
+      {
+        path:'/auth/forgetpassword',
+        element:<ForgetPassword/>
       }
     ],
   },
